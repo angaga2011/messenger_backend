@@ -22,7 +22,7 @@ async function connectDB() {
     return { Auth };
 }
 
-async function initializeServer() {
+async function v() {
     const { Auth } = await connectDB();
 
     app.post("/register", async (req, res) => {
@@ -87,4 +87,4 @@ async function initializeServer() {
 }
 
 
-initializeServer();
+serverAuth();
