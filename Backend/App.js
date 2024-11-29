@@ -42,7 +42,7 @@ function AuthToken(req, res, next) {
     }
 }
 
-async function v() {
+async function serverAuth() {
     const { Auth } = await connectDB();
 
     app.post("/register", async (req, res) => {
@@ -108,4 +108,4 @@ async function v() {
     });
 }
 
-initializeServer();
+serverAuth();
