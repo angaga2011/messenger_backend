@@ -22,7 +22,7 @@ async function connectDB() {
     return { Auth };
 }
 
-async function v() {
+async function serverAuth() {
     const { Auth } = await connectDB();
 
     app.post("/register", async (req, res) => {
@@ -86,5 +86,8 @@ async function v() {
     });
 }
 
+async function addContact(){
+     
+}
 console.log("Hello")
 serverAuth();

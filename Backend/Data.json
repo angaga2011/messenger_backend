@@ -1,83 +1,191 @@
 {
   "info": {
-    "name": "COMP229 - Week 11",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+      "name": "Backend",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
-    {
-      "name": "Register User",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\",\n  \"email\": \"testuser@example.com\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:3000/register",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["register"]
-        }
+      {
+          "name": "Register User",
+          "request": {
+              "method": "POST",
+              "header": [
+                  {"key": "Content-Type", "value": "application/json"}
+              ],
+              "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\",\n  \"email\": \"testuser@example.com\"\n}"
+              },
+              "url": {
+                  "raw": "http://localhost:3000/register",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["register"]
+              }
+          },
+          "response": []
       },
-      "response": []
-    },
-    {
-      "name": "Login User",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:3000/login",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["login"]
-        }
+      {
+          "name": "Login User",
+          "request": {
+              "method": "POST",
+              "header": [
+                  {"key": "Content-Type", "value": "application/json"}
+              ],
+              "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
+              },
+              "url": {
+                  "raw": "http://localhost:3000/login",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["login"]
+              }
+          },
+          "response": []
       },
-      "response": []
-    },
-    {
-      "name": "Get Dashboard Info",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "{{token}}",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "http://localhost:3000/dashboard",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "3000",
-          "path": ["api/dashboard"]
-        }
+      {
+          "name": "Get Dashboard Info",
+          "request": {
+              "method": "GET",
+              "header": [
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "url": {
+                  "raw": "http://localhost:3000/dashboard",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api/dashboard"]
+              }
+          },
+          "response": []
       },
-      "response": []
-    }
+      {
+          "name": "Add Contact",
+          "request": {
+              "method": "POST",
+              "header": [
+                  {"key": "Content-Type", "value": "application/json"},
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contactId\": \"<USER_ID_OF_CONTACT>\"\n}"
+              },
+              "url": {
+                  "raw": "http://localhost:3000/api/contacts/add",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api", "contacts", "add"]
+              }
+          },
+          "response": []
+      },
+      {
+          "name": "Get Contacts",
+          "request": {
+              "method": "GET",
+              "header": [
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "url": {
+                  "raw": "http://localhost:3000/api/contacts",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api", "contacts"]
+              }
+          },
+          "response": []
+      },
+      {
+          "name": "Send Message",
+          "request": {
+              "method": "POST",
+              "header": [
+                  {"key": "Content-Type", "value": "application/json"},
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"recipientId\": \"<USER_ID>\",\n  \"content\": \"Hello, how are you?\"\n}"
+              },
+              "url": {
+                  "raw": "http://localhost:3000/api/messages/send",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api", "messages", "send"]
+              }
+          },
+          "response": []
+      },
+      {
+          "name": "Get Message History",
+          "request": {
+              "method": "GET",
+              "header": [
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "url": {
+                  "raw": "http://localhost:3000/api/messages/history?contactId=<USER_ID>",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api", "messages", "history"],
+                  "query": [{"key": "contactId", "value": "<USER_ID>"}]
+              }
+          },
+          "response": []
+      },
+      {
+          "name": "Upload Media",
+          "request": {
+              "method": "POST",
+              "header": [
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "body": {
+                  "mode": "formdata",
+                  "formdata": [{"key": "file", "type": "file", "src": ""}]
+              },
+              "url": {
+                  "raw": "http://localhost:3000/api/messages/media/upload",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api", "messages", "media", "upload"]
+              }
+          },
+          "response": []
+      },
+      {
+          "name": "Mark Message as Read",
+          "request": {
+              "method": "PATCH",
+              "header": [
+                  {"key": "Content-Type", "value": "application/json"},
+                  {"key": "Authorization", "value": "{{token}}", "type": "text"}
+              ],
+              "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messageId\": \"<MESSAGE_ID>\"\n}"
+              },
+              "url": {
+                  "raw": "http://localhost:3000/api/messages/read",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["api", "messages", "read"]
+              }
+          },
+          "response": []
+      }
   ],
-  "variable": [
-    {
-      "key": "token",
-      "value": ""
-    }
-  ]
+  "variable": [{"key": "token", "value": ""}]
 }
+
