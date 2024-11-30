@@ -8,7 +8,7 @@ dotenv.config();
 
 const url = process.env.MONGO_URI; 
 const client = new MongoClient(url);
-const dbName = "GroupProject";
+const dbName = process.env.DB_NAME;
 const app = express();
 const Port = 3000;
 
@@ -18,7 +18,7 @@ async function connectDB() {
     await client.connect();
     console.log("Connected to MongoDB");
     const db = client.db(dbName);
-    const Auth = db.collection("Auth");
+    const Auth = db.collection("user");
     return { Auth };
 }
 
@@ -27,16 +27,28 @@ async function initializeServer() {
 
     app.post("/register", async (req, res) => {
         const { username, password, email } = req.body;
-
+    
         if (!username || !password || !email) {
             return res.status(400).json({ message: "All fields are required" });
         }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        await Auth.insertOne({ username, password: hashedPassword, email });
-
-        res.status(201).json({ message: "User registered successfully" });
+    
+        try {
+            console.log("Registering user:", { username, email });
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const result = await Auth.insertOne({ username, password: hashedPassword, email });
+            console.log("Insert result:", result);
+            
+            if (!result.acknowledged) {
+                throw new Error("Insertion failed");
+            }
+    
+            res.status(201).json({ message: "User registered successfully" });
+        } catch (error) {
+            console.error("Error during registration:", error);
+            res.status(500).json({ message: "An error occurred while registering the user" });
+        }
     });
+    
 
     app.post("/login", async (req, res) => {
         const { username, password } = req.body;
